@@ -5,9 +5,10 @@ export TERM=xterm-256color
 
 ###############################Functions#################################
 
-print_menu(){
+menu_print(){
 RED='\e[31m'
 NC='\e[0m'
+TRUE=1
 
 clear
 echo "****************************************************************"
@@ -38,5 +39,71 @@ echo "----------------------------------------------------------------"
 printf 'Choice: '  
 }
 
+menu_select()
+{
 
-print_menu
+    case $CHOICE in
+
+    ni)
+    echo $CHOICE
+    sleep 5
+    ;;
+    ua)
+    echo $CHOICE
+    ;;
+    ul)
+    echo $CHOICE
+    ;;
+    uv)
+    echo $CHOICE
+    ;;
+    um)
+    echo $CHOICE
+    ;;
+    ud)
+    echo $CHOICE
+    ;;
+    ga)
+    echo $CHOICE
+    ;;
+    gl)
+    echo $CHOICE
+    ;;
+    gv)
+    echo $CHOICE
+    ;;
+    gm)
+    echo $CHOICE
+    ;;
+    gd)
+    echo $CHOICE
+    ;;
+    fa)
+    echo $CHOICE
+    ;;
+    fl)
+    echo $CHOICE
+    ;;
+    fv)
+    echo $CHOICE
+    ;;
+    fm)
+    echo $CHOICE
+    ;;
+    fd)
+    echo $CHOICE
+    ;;
+    ex)
+    printf "Exiting!\n\n"
+    sleep 5
+    clear
+    ;; 
+    esac
+}
+
+while [ "$CHOICE" != "ex" ]
+do
+menu_print
+read CHOICE
+menu_select
+done
