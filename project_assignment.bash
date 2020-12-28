@@ -32,7 +32,9 @@ menu_select()
     echo $CHOICE
     ;;
     ga) # group add
-    echo $CHOICE
+    printf "Enter the name of the new group: "
+    read GRP_NAME
+    groupadd $GRP_NAME
     ;;
     gl) #group list
     echo $CHOICE
@@ -47,12 +49,9 @@ menu_select()
     echo $CHOICE
     ;;
     fa) #folder add
-    echo "You are in $PWD"
-    printf "Enter a name for a folder to add: "
-    read FLDR_NAME
-    mkdir $FLDR_NAME
-
+    folder_add
     ;;
+
     fl) #folder list
     echo "You are in $PWD"
     printf "Select folder to list content in: "
@@ -61,6 +60,7 @@ menu_select()
     printf "\nPress enter to continue"
     read -s -n 1 key
     ;;
+
     fv) #folder view
     printf "Select folder to view: "
     read FLDR
@@ -68,6 +68,7 @@ menu_select()
     printf "\nPress enter to continue"
     read -s -n 1 key
     ;;
+
     fm) #folder modify
     echo "You are in $PWD"
     printf "Select folder to change permissions on: "
@@ -80,6 +81,7 @@ menu_select()
     printf "\nPress enter to continue"
     read -s -n 1 key
     ;;
+
     fd) #folder delete
     echo "You are in $PWD"
     printf "Select folder to delete: "
