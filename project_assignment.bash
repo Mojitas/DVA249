@@ -13,55 +13,58 @@ menu_select()
     clear
     case $CHOICE in
 
-    ni)
+    ni)  # display network info
     func    
     ;;
-    ua)
+    ua)  # user add
     echo $CHOICE
     ;;
-    ul)
+    ul) #user list
     echo $CHOICE
     ;;
-    uv)
+    uv) #user view
     echo $CHOICE
     ;;
-    um)
+    um) # user modify
     echo $CHOICE
     ;;
-    ud)
+    ud) #user delete
     echo $CHOICE
     ;;
-    ga)
+    ga) # group add
     echo $CHOICE
     ;;
-    gl)
+    gl) #group list
     echo $CHOICE
     ;;
-    gv)
+    gv) #group view
     echo $CHOICE
     ;;
-    gm)
+    gm) #group modify
     echo $CHOICE
     ;;
-    gd)
+    gd) #group delete
     echo $CHOICE
     ;;
-    fa)
+    fa) #folder add
+    printf "Enter a name for a folder to add: "
+    read FLDR_NAME
+    mkdir $FLDR_NAME
+
+    ;;
+    fl) #folder list
     echo $CHOICE
     ;;
-    fl)
+    fv) #folder view
     echo $CHOICE
     ;;
-    fv)
+    fm) #folder modify
     echo $CHOICE
     ;;
-    fm)
+    fd) #folder delete
     echo $CHOICE
     ;;
-    fd)
-    echo $CHOICE
-    ;;
-    ex)
+    ex) #exit
     printf "Exiting!\n\n"
     ;; 
     esac
