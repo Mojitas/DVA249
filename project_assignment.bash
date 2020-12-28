@@ -47,31 +47,54 @@ menu_select()
     echo $CHOICE
     ;;
     fa) #folder add
+    echo "You are in $PWD"
     printf "Enter a name for a folder to add: "
     read FLDR_NAME
     mkdir $FLDR_NAME
 
     ;;
     fl) #folder list
-    echo $CHOICE
+    echo "You are in $PWD"
+    printf "Select folder to list content in: "
+    read FLDR_LIST
+    ls -la --color=auto $FLDR_LIST
+    printf "\nPress enter to continue"
+    read -s -n 1 key
     ;;
     fv) #folder view
-    echo $CHOICE
+    printf "Select folder to view: "
+    read FLDR
+    ls -l | grep $FLDR
+    printf "\nPress enter to continue"
+    read -s -n 1 key
     ;;
     fm) #folder modify
-    echo $CHOICE
+    echo "You are in $PWD"
+    printf "Select folder to change permissions on: "
+    read FLDR
+    echo $FLDR has permissions: 
+    ls -l | grep $FLDR
+    printf "Enter new permission: "
+    read FLDR_PERM
+    chmod $FLDR_PERM $FLDR
+    printf "\nPress enter to continue"
+    read -s -n 1 key
     ;;
     fd) #folder delete
-    echo $CHOICE
+    echo "You are in $PWD"
+    printf "Select folder to delete: "
+    read FLDR_DEL
+    rm -r $FLDR_DEL
     ;;
     ex) #exit
     printf "Exiting!\n\n"
     ;; 
     esac
-    sleep 3
+    
 }
 
 
+cd /home/mojitas
 
 
 while [ "$CHOICE" != "ex" ]
