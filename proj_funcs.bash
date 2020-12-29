@@ -1,5 +1,12 @@
 #!/bin/bash
 
+
+enter_continue()
+{
+    printf "\nPress enter to continue"
+    read -s -n 1 key
+}
+
 folder_add()
 {
     echo "You are in $PWD"
@@ -14,8 +21,7 @@ folder_list()
     printf "Select folder to list content in: "
     read FLDR_LIST
     ls -la --color=auto $FLDR_LIST
-    printf "\nPress enter to continue"
-    read -s -n 1 key
+    enter_continue
 }
 
 folder_view()
@@ -23,9 +29,9 @@ folder_view()
     printf "Select folder to view: "
     read FLDR
     ls -l | grep $FLDR
-    printf "\nPress enter to continue"
-    read -s -n 1 key
+    enter_continue
 }
+
 
 folder_mod()
 {
@@ -37,8 +43,7 @@ folder_mod()
     printf "Enter new permission: "
     read FLDR_PERM
     chmod $FLDR_PERM $FLDR
-    printf "\nPress enter to continue"
-    read -s -n 1 key
+    enter_continue
 }
 
 folder_del()

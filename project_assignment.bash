@@ -35,19 +35,18 @@ menu_select()
         printf "Enter the name of the new group: "
         read GRP_NAME
         groupadd $GRP_NAME
+        enter_continue
     ;;
     gl) #group list
         echo "Groups:"
         cat /etc/group | awk -F: '$3 > 999 {print $3, $1}'
-        printf "\nPress enter to continue"
-        read -s -n 1 key
+        enter_continue
     ;;
     gv) #group view
         printf "Enter a group to list users in: "
         read GRP_USER
         grep $GRP_USER /etc/group | awk -F':' '{print $4}'
-        printf "\nPress enter to continue"
-        read -s -n 1 key
+        enter_continue
     ;;
     gm) #group modify
         echo $CHOICE
@@ -74,6 +73,10 @@ menu_select()
     fd) #folder delete
         folder_del
     ;; 
+    ex)
+        echo "Exiting!"
+        sleep 1
+    ;;
     esac
     
 }
