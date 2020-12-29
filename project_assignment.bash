@@ -32,64 +32,47 @@ menu_select()
     echo $CHOICE
     ;;
     ga) # group add
-    printf "Enter the name of the new group: "
-    read GRP_NAME
-    groupadd $GRP_NAME
+        printf "Enter the name of the new group: "
+        read GRP_NAME
+        groupadd $GRP_NAME
     ;;
     gl) #group list
-    echo $CHOICE
+        echo "Groups:"
+        cat /etc/group | awk -F: '$3 > 999 {print $3, $1}'
+        printf "\nPress enter to continue"
+        read -s -n 1 key
     ;;
     gv) #group view
-    echo $CHOICE
+        printf "Enter a group to list users in: "
+        read GRP_USER
+        grep $GRP_USER /etc/group | awk -F':' '{print $4}'
+        printf "\nPress enter to continue"
+        read -s -n 1 key
     ;;
     gm) #group modify
-    echo $CHOICE
+        echo $CHOICE
     ;;
     gd) #group delete
-    echo $CHOICE
+        echo $CHOICE
     ;;
     fa) #folder add
-    folder_add
+        folder_add
     ;;
 
     fl) #folder list
-    echo "You are in $PWD"
-    printf "Select folder to list content in: "
-    read FLDR_LIST
-    ls -la --color=auto $FLDR_LIST
-    printf "\nPress enter to continue"
-    read -s -n 1 key
+        folder_list
     ;;
 
     fv) #folder view
-    printf "Select folder to view: "
-    read FLDR
-    ls -l | grep $FLDR
-    printf "\nPress enter to continue"
-    read -s -n 1 key
+        folder_view
     ;;
 
     fm) #folder modify
-    echo "You are in $PWD"
-    printf "Select folder to change permissions on: "
-    read FLDR
-    echo $FLDR has permissions: 
-    ls -l | grep $FLDR
-    printf "Enter new permission: "
-    read FLDR_PERM
-    chmod $FLDR_PERM $FLDR
-    printf "\nPress enter to continue"
-    read -s -n 1 key
+        folder_mod
     ;;
 
     fd) #folder delete
-    echo "You are in $PWD"
-    printf "Select folder to delete: "
-    read FLDR_DEL
-    rm -r $FLDR_DEL
-    ;;
-    ex) #exit
-    printf "Exiting!\n\n"
+        folder_del
     ;; 
     esac
     
