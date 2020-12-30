@@ -14,7 +14,8 @@ menu_select()
     case $CHOICE in
 
     ni)
-    func    
+#    func    
+    bash temp/networkinfo
     ;;
     ua)
     echo $CHOICE

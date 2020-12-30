@@ -58,11 +58,8 @@ fi
 NAME=`uname -n`
 echo "Computer name: $NAME"
 
-# Get device/interface names
-DEVICES=`nmcli -f GENERAL.DEVICE device show | awk '{print $2}'`
-
 # Get device/interface names, excluding localhost
-#DEVICES=`nmcli -f GENERAL.DEVICE device show | grep -v lo | awk '{print $2}'`
+DEVICES=`nmcli -f GENERAL.DEVICE device show | grep -v lo | awk '{print $2}'`
 
 # If no network interfaces exists
 if [ -z "$DEVICES" ]; then
