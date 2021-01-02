@@ -36,6 +36,7 @@ group_mod()
     *)
     echo "Not an option!"
     ;;
+    enter_continue
 }
 
 group_del()
@@ -43,6 +44,7 @@ group_del()
     printf "Enter group to delete: "
     read GRP_DEL
     groupdel $GRP_DEL
+    enter_continue
 }
 
 folder_add()
