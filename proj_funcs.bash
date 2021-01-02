@@ -23,17 +23,17 @@ user_list()
 
 user_view()
 {
-
+ echo "to be added"
 }
 
 user_mod()
 {
-
+    echo "to be added"
 }
 
 user_del()
 {
-
+    echo "to be added"
 }
 
 group_add()
@@ -88,7 +88,6 @@ group_mod()
     *)
         echo "Not an option!"
     ;;
-
     esac
     enter_continue
 }

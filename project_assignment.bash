@@ -14,20 +14,22 @@ menu_select()
     case $CHOICE in
 
     ni)  # display network info
-    ;;
+        echo "network stuff!"
+        enter_continue
+    ;; 
     ua)  # user add
         user_add
     ;;
-    ul) #user list
+    ul) # user list
         user_list
     ;;
-    uv) #user view
+    uv) # user view
         user_view
     ;;
     um) # user modify
         user_mod
     ;;
-    ud) #user delete
+    ud) # user delete
         user_del
     ;;
     ga) # group add
@@ -61,7 +63,6 @@ menu_select()
         folder_del
     ;; 
     esac
-    
 }
 
 
