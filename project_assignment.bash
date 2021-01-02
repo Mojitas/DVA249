@@ -49,10 +49,10 @@ menu_select()
         enter_continue
     ;;
     gm) #group modify
-        echo $CHOICE
+        group_mod
     ;;
     gd) #group delete
-        echo $CHOICE
+        group_del
     ;;
     fa) #folder add
         folder_add
@@ -73,10 +73,6 @@ menu_select()
     fd) #folder delete
         folder_del
     ;; 
-    ex)
-        echo "Exiting!"
-        sleep 1
-    ;;
     esac
     
 }

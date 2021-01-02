@@ -7,6 +7,44 @@ enter_continue()
     read -s -n 1 key
 }
 
+
+group_mod()
+{
+    echo "Do you want to add or remove a user from a group?"
+    echo "ad - Add user to group"
+    echo "rm - remove user from group"
+    printf "Choice: "
+    read GRP_CHOICE
+
+    case GRP_CHOICE in
+
+    ad)
+    printf "Enter user to add: "
+    read USR_ADD
+    printf "Enter group to add user to: "
+    read GRP_ADD
+
+    gpasswd -a $USR_ADD $GRP_ADD
+    ;;
+    rm)
+    printf "Enter user to remove: "
+    read USR_RM
+    printf "Enter group to remove user from: "
+    read GRP_RM
+    gpasswd -d $USR_RM $GRP_RM
+    ;;
+    *)
+    echo "Not an option!"
+    ;;
+}
+
+group_del()
+{
+    printf "Enter group to delete: "
+    read GRP_DEL
+    groupdel $GRP_DEL
+}
+
 folder_add()
 {
     echo "You are in $PWD"
