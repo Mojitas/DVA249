@@ -14,42 +14,33 @@ menu_select()
     case $CHOICE in
 
     ni)  # display network info
-    func    
     ;;
     ua)  # user add
-    echo $CHOICE
+        user_add
     ;;
     ul) #user list
-    echo $CHOICE
+        user_list
     ;;
     uv) #user view
-    echo $CHOICE
+        user_view
     ;;
     um) # user modify
-    echo $CHOICE
+        user_mod
     ;;
     ud) #user delete
-    echo $CHOICE
+        user_del
     ;;
     ga) # group add
-        printf "Enter the name of the new group: "
-        read GRP_NAME
-        groupadd $GRP_NAME
-        enter_continue
+        group_add
     ;;
     gl) #group list
-        echo "Groups:"
-        cat /etc/group | awk -F: '$3 > 999 {print $3, $1}'
-        enter_continue
+        group_list
     ;;
     gv) #group view
-        printf "Enter a group to list users in: "
-        read GRP_USER
-        grep $GRP_USER /etc/group | awk -F':' '{print $4}'
-        enter_continue
+        group_view
     ;;
     gm) #group modify
-        group_mod
+        group_mod       
     ;;
     gd) #group delete
         group_del
@@ -57,19 +48,15 @@ menu_select()
     fa) #folder add
         folder_add
     ;;
-
     fl) #folder list
         folder_list
     ;;
-
     fv) #folder view
         folder_view
     ;;
-
     fm) #folder modify
         folder_mod
     ;;
-
     fd) #folder delete
         folder_del
     ;; 

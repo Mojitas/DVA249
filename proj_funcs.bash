@@ -7,6 +7,57 @@ enter_continue()
     read -s -n 1 key
 }
 
+user_add()
+{
+    printf "Enter name of the new user: "
+    read USR_NEW
+    adduser $USR_NEW
+}
+
+user_list()
+{
+    echo "Users:"
+    cat /etc/passwd | awk -F: '$3 > 999 {print $3, $1}'
+    enter_continue
+}
+
+user_view()
+{
+
+}
+
+user_mod()
+{
+
+}
+
+user_del()
+{
+
+}
+
+group_add()
+{
+    printf "Enter the name of the new group: "
+    read GRP_NAME
+    groupadd $GRP_NAME
+    enter_continue
+}
+
+group_list()
+{
+    echo "Groups:"
+    cat /etc/group | awk -F: '$3 > 999 {print $3, $1}'
+    enter_continue
+}
+
+group_view()
+{
+    printf "Enter a group to list users in: "
+    read GRP_USER
+    grep $GRP_USER /etc/group | awk -F':' '{print $4}'
+    enter_continue
+}
 
 group_mod()
 {
@@ -16,26 +67,29 @@ group_mod()
     printf "Choice: "
     read GRP_CHOICE
 
-    case GRP_CHOICE in
+    case $GRP_CHOICE in
 
     ad)
-    printf "Enter user to add: "
-    read USR_ADD
-    printf "Enter group to add user to: "
-    read GRP_ADD
+        printf "Enter user to add: "
+        read USR_ADD
+        printf "Enter group to add user to: "
+        read GRP_ADD
+        gpasswd -a $USR_ADD $GRP_ADD
+    ;;
 
-    gpasswd -a $USR_ADD $GRP_ADD
-    ;;
     rm)
-    printf "Enter user to remove: "
-    read USR_RM
-    printf "Enter group to remove user from: "
-    read GRP_RM
-    gpasswd -d $USR_RM $GRP_RM
+        printf "Enter user to remove: "
+        read USR_RM
+        printf "Enter group to remove user from: "
+        read GRP_RM
+        gpasswd -d $USR_RM $GRP_RM
     ;;
+
     *)
-    echo "Not an option!"
+        echo "Not an option!"
     ;;
+
+    esac
     enter_continue
 }
 
@@ -92,7 +146,5 @@ folder_del()
     printf "Select folder to delete: "
     read FLDR_DEL
     rm -r $FLDR_DEL
-    ;;
-    ex) #exit
     printf "Exiting!\n\n"
 }
