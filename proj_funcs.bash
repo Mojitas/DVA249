@@ -45,7 +45,7 @@ user_mod()
     printf "Choice: "
     read USER_CH
 
-    case $USER_CH in
+    case $USR_CH in
 
         un)
             printf "Enter new username: "
@@ -72,11 +72,25 @@ user_mod()
             read USR_HD
             usermod -d $USER_HD $USER_NM
         ;;
-        ds)
-            echo "stuff"
+        sh)
+        echo "Available shells:"
+        SHELLS=$( cat /etc/shells | grep -v "#")
+        SHELLS=($SHELLS)
+        #print available shells with a corresponding index 
+        for i in ${!SHELLS[@]}; do
+        echo -e "[$i]\t${SHELLS[$i]}"
+        done
+        read INDEX
+        echo -e "¤${SHELLS[$INDEX]}¤\t¤$USER_NM¤"
+        
+        #change shell for chosen user
+        usermod -s ${SHELLS[$INDEX]} $USER_NM
+        
+        read INDEX;
         ;;
         *)
-            echo "not an option"
+        echo "invalid option"
+        sleep 1
         ;;
     esac
 }

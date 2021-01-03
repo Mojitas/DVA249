@@ -78,7 +78,7 @@ function f_device_info {
 
 #######################################################################
 ##### Main
-function f_networkinfo(){
+function f_networkinfo {
 
 # computer name
 NAME=`uname -n`
@@ -103,7 +103,7 @@ done
 
 # Print default gateway
 f_default_gateway
-
+sleep 5
 enter_continue
 
 }
