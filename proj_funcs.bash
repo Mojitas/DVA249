@@ -188,7 +188,7 @@ folder_view()
 {
     printf "Select folder to view: "
     read FLDR
-    ls -l | grep $FLDR
+    ls -la --color=auto $FLDR | grep " \.$"
     enter_continue
 }
 
