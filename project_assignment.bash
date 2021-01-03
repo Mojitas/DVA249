@@ -13,11 +13,23 @@ menu_select()
     clear
     case $CHOICE in
 
+<<<<<<< ours
+    ni)
+#    func    
+    bash temp/networkinfo
+    ;;
+    ua)
+    echo $CHOICE
+    ;;
+    ul)
+    echo $CHOICE
+=======
     ni)  # display network info
     echo netowkr!
     ;; 
     ua)  # user add
         user_add
+>>>>>>> theirs
     ;;
     ul) # user list
         user_list
