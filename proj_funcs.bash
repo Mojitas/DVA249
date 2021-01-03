@@ -10,7 +10,7 @@ enter_continue()
 user_add()
 {
     printf "Enter name of the new user: "
-    read USR_NEW
+    read USER_NEW
     adduser $USER_NEW
 }
 
@@ -45,13 +45,14 @@ user_mod()
     printf "Choice: "
     read USER_CH
 
-    case $USR_CH in
+    case $USER_CH in
 
         un)
             printf "Enter new username: "
-            read USR_NM_NEW
+            read USER_NM_NEW
             usermod -l $USER_NM_NEW $USER_NM 
-            mv /home/$USER_NM/ /home/$USER_NM_NEW/
+            mv $USER_NM_NEW $USER_NM
+            usermod -d $USER_NM_NEW $USER_NM_NEW
             enter_continue
         ;;
         pw)
@@ -59,17 +60,17 @@ user_mod()
         ;;
         pg)
             printf "Enter new primary group: "
-            read USR_PMG
+            read USER_PMG
             usermod -g $USER_PMG $USER_NM
         ;;
         uc)
             printf "Enter new string: "
-            read USR_COM
+            read USER_COM
             usermod -c $USER_COM $USER_NM
         ;;
         hd)
             printf "Enter new existing home directory: "
-            read USR_HD
+            read USER_HD
             usermod -d $USER_HD $USER_NM
         ;;
         sh)
