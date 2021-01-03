@@ -3,7 +3,7 @@
 export TERM=${TERM:-dumb}
 export TERM=xterm-256color
 
-source proj_funcs.bash # some functions
+source proj_funcs.bash # Functions from an other script
 source proj_menu.bash # Menu functions
 
 ###############################Functions#################################
@@ -13,6 +13,7 @@ menu_select()
     clear
     case $CHOICE in
 
+<<<<<<< ours
     ni)
 #    func    
     bash temp/networkinfo
@@ -22,54 +23,62 @@ menu_select()
     ;;
     ul)
     echo $CHOICE
+=======
+    ni)  # display network info
+        echo "network stuff!"
+        enter_continue
+    ;; 
+    ua)  # user add
+        user_add
+>>>>>>> theirs
     ;;
-    uv)
-    echo $CHOICE
+    ul) # user list
+        user_list
     ;;
-    um)
-    echo $CHOICE
+    uv) # user view
+        user_view
     ;;
-    ud)
-    echo $CHOICE
+    um) # user modify
+        user_mod
     ;;
-    ga)
-    echo $CHOICE
+    ud) # user delete
+        user_del
     ;;
-    gl)
-    echo $CHOICE
+    ga) # group add
+        group_add
     ;;
-    gv)
-    echo $CHOICE
+    gl) #group list
+        group_list
     ;;
-    gm)
-    echo $CHOICE
+    gv) #group view
+        group_view
     ;;
-    gd)
-    echo $CHOICE
+    gm) #group modify
+        group_mod       
     ;;
-    fa)
-    echo $CHOICE
+    gd) #group delete
+        group_del
     ;;
-    fl)
-    echo $CHOICE
+    fa) #folder add
+        folder_add
     ;;
-    fv)
-    echo $CHOICE
+    fl) #folder list
+        folder_list
     ;;
-    fm)
-    echo $CHOICE
+    fv) #folder view
+        folder_view
     ;;
-    fd)
-    echo $CHOICE
+    fm) #folder modify
+        folder_mod
     ;;
-    ex)
-    printf "Exiting!\n\n"
+    fd) #folder delete
+        folder_del
     ;; 
     esac
-    sleep 3
 }
 
 
+cd /home/mojitas
 
 
 while [ "$CHOICE" != "ex" ]
