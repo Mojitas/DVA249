@@ -71,20 +71,18 @@ user_mod()
         usermod -d USR_HD USR_NM
         ;;
         sh)
-        echo "Available shells:"
+        # get available shells (and remove comments)
         SHELLS=$( cat /etc/shells | grep -v "#")
         SHELLS=($SHELLS)
         #print available shells with a corresponding index 
         for i in ${!SHELLS[@]}; do
         echo -e "[$i]\t${SHELLS[$i]}"
         done
+
         read INDEX
-        echo -e "¤${SHELLS[$INDEX]}¤\t¤$USER_NM¤"
-        
         #change shell for chosen user
         usermod -s ${SHELLS[$INDEX]} $USER_NM
-        
-        read INDEX;
+        enter_continue
         ;;
         *)
         echo "invalid option"
@@ -95,7 +93,10 @@ user_mod()
 
 user_del()
 {
-    echo "to be added"
+    echo "Enter user to delete:"
+    read USER_DEL
+    userdel $USER_DEL
+    enter_continue
 }
 
 group_add()
