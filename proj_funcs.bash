@@ -11,7 +11,7 @@ user_add()
 {
     printf "Enter name of the new user: "
     read USR_NEW
-    adduser $USR_NEW
+    adduser $USER_NEW
 }
 
 user_list()
@@ -24,9 +24,9 @@ user_list()
 user_view()
 {
     printf "Enter user to list attributes about: "
-    read USR_ATTR
-    cat /etc/passwd | grep $USR_ATTR | awk -F: '{print "\nUser name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
-    cat /etc/group | grep $USR_ATTR | awk -F: '{print "\nSupplementary groups: " $1'
+    read USER_ATTR
+    cat /etc/passwd | grep $USER_ATTR | awk -F: '{print "\nUser name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
+    cat /etc/group | grep $USER_ATTR | awk -F: '{print "\nSupplementary groups: " $1'
     enter_continue
 }
 
@@ -35,46 +35,48 @@ user_mod()
     printf "Enter user that you wish to change: "
     read USER_NM
 
-    echo "un - change username"
-    echo "pw - change password"
-    echo "pg - change primary group"
-    echo "uc - change user comments"
-    echo "hd - change home directory"
-    echo "ds - change default shell"
+    echo -e "${RED}un${NC} - change username"
+    echo -e "${RED}pw${NC} - change password"
+    echo -e "${RED}pg${NC} - change primary group"
+    echo -e "${RED}uc${NC} - change user comments"
+    echo -e "${RED}hd${NC} - change home directory"
+    echo -e "${RED}ds${NC} - change default shell"
 
     printf "Choice: "
-    read USR_CH
+    read USER_CH
 
     case $USER_CH in
 
         un)
-        printf "Enter new username: "
-        read USR_NM_NEW
-        usermod -l $USER_NM_NEW $USER_NM 
-        mv /home/$USR_NM /home/$USR_NM_NEW
-        enter_continue
-        ;;
-        ps)
-        passwd $USER_NM
+            printf "Enter new username: "
+            read USR_NM_NEW
+            usermod -l $USER_NM_NEW $USER_NM 
+            mv /home/$USER_NM/ /home/$USER_NM_NEW/
+            enter_continue
         ;;
         pw)
-        printf "Enter new primary group: "
-        read USR_PMG
-        usermod -g $USR_PMG $USER_NM
+            passwd $USER_NM
+        ;;
+        pg)
+            printf "Enter new primary group: "
+            read USR_PMG
+            usermod -g $USER_PMG $USER_NM
         ;;
         uc)
-        printf "Enter new string: "
-        read USR_COM
-        usermod -c $USR_COM $USR_NM
+            printf "Enter new string: "
+            read USR_COM
+            usermod -c $USER_COM $USER_NM
         ;;
         hd)
-        printf "Enter new existing home directory: "
-        read USR_HD
-        usermod -d $USR_HD $USR_NM
+            printf "Enter new existing home directory: "
+            read USR_HD
+            usermod -d $USER_HD $USER_NM
         ;;
         ds)
+            echo "stuff"
         ;;
         *)
+            echo "not an option"
         ;;
     esac
 }
@@ -111,8 +113,8 @@ group_view()
 group_mod()
 {
     echo "Do you want to add or remove a user from a group?"
-    echo "ad - Add user to group"
-    echo "rm - remove user from group"
+    echo -e "${RED}ad${NC} - Add user to group"
+    echo -e "${RED}rm${NC} - remove user from group"
     printf "Choice: "
     read GRP_CHOICE
 
@@ -123,7 +125,7 @@ group_mod()
         read USR_ADD
         printf "Enter group to add user to: "
         read GRP_ADD
-        gpasswd -a $USR_ADD $GRP_ADD
+        gpasswd -a $USER_ADD $GRP_ADD
     ;;
 
     rm)
@@ -131,7 +133,7 @@ group_mod()
         read USR_RM
         printf "Enter group to remove user from: "
         read GRP_RM
-        gpasswd -d $USR_RM $GRP_RM
+        gpasswd -d $USER_RM $GRP_RM
     ;;
 
     *)
