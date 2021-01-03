@@ -32,7 +32,49 @@ user_view()
 
 user_mod()
 {
-    echo "to be added"
+    printf "Enter user that you wish to change: "
+    read USER_NM
+
+    echo "un - change username"
+    echo "ps - change password"
+    echo "pm - change primary group"
+    echo "uc - change user comments"
+    echo "hd - change home directory"
+    echo "sh - change default shell"
+
+    printf "Choice: "
+    read USR_CH
+
+    case $USER_CH in
+
+        un)
+        printf "Enter new username: "
+        read USR_NM_NEW
+        usermod -l $USER_NM_NEW $USER_NM 
+        ;;
+        ps)
+        passwd $USER_NM
+        ;;
+        pm)
+        printf "Enter new primary group: "
+        read USR_PMG
+        usermod -g $USR_PMG $USER_NM
+        ;;
+        uc)
+        printf "Enter new string: "
+        read USR_COM
+        usermod -c $USR_COM $USR_NM
+        ;;
+        hd)
+        printf "Enter new existing home directory: "
+        read USR_HD
+        usermod -d USR_HD USR_NM
+        ;;
+        sh)
+        ;;
+        *)
+        ;;
+    esac
 }
 
 user_del()
