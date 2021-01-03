@@ -138,7 +138,7 @@ group_mod()
 
     ad)
         printf "Enter user to add: "
-        read USR_ADD
+        read USER_ADD
         printf "Enter group to add user to: "
         read GRP_ADD
         gpasswd -a $USER_ADD $GRP_ADD
@@ -146,7 +146,7 @@ group_mod()
 
     rm)
         printf "Enter user to remove: "
-        read USR_RM
+        read USER_RM
         printf "Enter group to remove user from: "
         read GRP_RM
         gpasswd -d $USER_RM $GRP_RM
