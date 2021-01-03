@@ -26,7 +26,7 @@ user_view()
     printf "Enter user to list attributes about: "
     read USR_ATTR
     cat /etc/passwd | grep $USR_ATTR | awk -F: '{print "\nUser name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
-
+    cat /etc/group | grep $USR_ATTR | awk -F: '{print "\nSupplementary groups: " $1'
     enter_continue
 }
 
@@ -36,11 +36,11 @@ user_mod()
     read USER_NM
 
     echo "un - change username"
-    echo "ps - change password"
-    echo "pm - change primary group"
+    echo "pw - change password"
+    echo "pg - change primary group"
     echo "uc - change user comments"
     echo "hd - change home directory"
-    echo "sh - change default shell"
+    echo "ds - change default shell"
 
     printf "Choice: "
     read USR_CH
@@ -51,11 +51,13 @@ user_mod()
         printf "Enter new username: "
         read USR_NM_NEW
         usermod -l $USER_NM_NEW $USER_NM 
+        mv /home/$USR_NM /home/$USR_NM_NEW
+        enter_continue
         ;;
         ps)
         passwd $USER_NM
         ;;
-        pm)
+        pw)
         printf "Enter new primary group: "
         read USR_PMG
         usermod -g $USR_PMG $USER_NM
@@ -68,9 +70,9 @@ user_mod()
         hd)
         printf "Enter new existing home directory: "
         read USR_HD
-        usermod -d USR_HD USR_NM
+        usermod -d $USR_HD $USR_NM
         ;;
-        sh)
+        ds)
         ;;
         *)
         ;;
@@ -101,7 +103,8 @@ group_view()
 {
     printf "Enter a group to list users in: "
     read GRP_USER
-    grep $GRP_USER /etc/group | awk -F':' '{print $4}'
+    printf "Secondary users in $GRP_USER: "
+    grep $GRP_USER /etc/group | awk -F: '$3 > 999 {print $4}'
     enter_continue
 }
 

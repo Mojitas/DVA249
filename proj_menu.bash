@@ -16,7 +16,7 @@ menu_print()
     echo -e "${RED}ul${NC} - User List     (List all login users)"
     echo -e "${RED}uv${NC} - User View     (View user properties)"
     echo -e "${RED}um${NC} - User Modify   (Modify User properties)"
-    echo -e "${RED}ud${NC} - User Delete   (Deleta a login user)"
+    echo -e "${RED}ud${NC} - User Delete   (Delete a login user)"
     echo
     echo -e "${RED}ga${NC} - Group Add     (Create a new group)"
     echo -e "${RED}gl${NC} - Group List    (List all groups, not system groups)"

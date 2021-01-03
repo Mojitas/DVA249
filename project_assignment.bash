@@ -5,7 +5,7 @@ export TERM=xterm-256color
 
 source proj_funcs.bash # Functions from an other script
 source proj_menu.bash # Menu functions
-#source networkinfo # network stuff
+source networkinfo # network stuff
 
 ###############################Functions#################################
 menu_select()
@@ -65,7 +65,7 @@ menu_select()
 }
 
 
-cd ~
+cd /home/
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
@@ -80,3 +80,5 @@ do
     menu_select
     
 done
+
+echo Exiting! 
