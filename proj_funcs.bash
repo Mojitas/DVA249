@@ -26,7 +26,12 @@ user_view()
     printf "Enter user to list attributes about: "
     read USER_ATTR
     cat /etc/passwd | grep $USER_ATTR | awk -F: '{print "\nUser name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
+<<<<<<< HEAD
+    echo "Secondary groups: "
+    cat /etc/group | grep $USER_ATTR | awk -F: '{print $4}'
+=======
     cat /etc/group | grep $USER_ATTR | awk -F: '{print "\nSupplementary groups: " $1}'
+>>>>>>> dcda2c951758ad907fde1ac3cd4dc201d8f8a39d
     enter_continue
 }
 
@@ -51,8 +56,8 @@ user_mod()
             printf "Enter new username: "
             read USER_NM_NEW
             usermod -l $USER_NM_NEW $USER_NM 
-            mv $USER_NM_NEW $USER_NM
-            usermod -d $USER_NM_NEW $USER_NM_NEW
+            mv /home/$USER_NM /home/$USER_NM_NEW
+            usermod -d /home/$USER_NM_NEW $USER_NM_NEW
             enter_continue
         ;;
         pw)
@@ -113,7 +118,7 @@ group_add()
 group_list()
 {
     echo "Groups:"
-    cat /etc/group | awk -F: '$3 > 999 {print $3, $1}'
+    cat /etc/group | awk -F: '$3 > 999 {print  "id: "$3, $1}'
     enter_continue
 }
 
