@@ -10,7 +10,7 @@ enter_continue()
 user_add()
 {
     printf "Enter name of the new user: "
-    read USR_NEW
+    read USER_NEW
     adduser $USER_NEW
 }
 
@@ -49,7 +49,7 @@ user_mod()
 
         un)
             printf "Enter new username: "
-            read USR_NM_NEW
+            read USER_NM_NEW
             usermod -l $USER_NM_NEW $USER_NM 
             mv /home/$USER_NM/ /home/$USER_NM_NEW/
             enter_continue
@@ -59,17 +59,17 @@ user_mod()
         ;;
         pg)
             printf "Enter new primary group: "
-            read USR_PMG
+            read USER_PMG
             usermod -g $USER_PMG $USER_NM
         ;;
         uc)
             printf "Enter new string: "
-            read USR_COM
+            read USER_COM
             usermod -c $USER_COM $USER_NM
         ;;
         hd)
             printf "Enter new existing home directory: "
-            read USR_HD
+            read USER_HD
             usermod -d $USER_HD $USER_NM
         ;;
         sh)
@@ -137,7 +137,7 @@ group_mod()
 
     ad)
         printf "Enter user to add: "
-        read USR_ADD
+        read USER_ADD
         printf "Enter group to add user to: "
         read GRP_ADD
         gpasswd -a $USER_ADD $GRP_ADD
@@ -145,7 +145,7 @@ group_mod()
 
     rm)
         printf "Enter user to remove: "
-        read USR_RM
+        read USER_RM
         printf "Enter group to remove user from: "
         read GRP_RM
         gpasswd -d $USER_RM $GRP_RM
