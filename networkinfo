@@ -103,9 +103,8 @@ done
 
 # Print default gateway
 f_default_gateway
-sleep 5
-enter_continue
 
+enter_continue
 }
 
 
