@@ -13,23 +13,11 @@ menu_select()
     clear
     case $CHOICE in
 
-<<<<<<< ours
-    ni)
-#    func    
-    bash temp/networkinfo
-    ;;
-    ua)
-    echo $CHOICE
-    ;;
-    ul)
-    echo $CHOICE
-=======
     ni)  # display network info
-    echo netowkr!
+        f_networkinfo
     ;; 
     ua)  # user add
         user_add
->>>>>>> theirs
     ;;
     ul) # user list
         user_list
@@ -77,7 +65,7 @@ menu_select()
 }
 
 
-cd /home/mojitas
+cd ~
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"

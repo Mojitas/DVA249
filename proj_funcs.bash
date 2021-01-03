@@ -3,7 +3,7 @@
 
 enter_continue()
 {
-    printf "\nPress enter to continue"
+    printf "\nPress any key to continue"
     read -s -n 1 key
 }
 
