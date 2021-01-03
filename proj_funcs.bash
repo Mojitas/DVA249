@@ -26,12 +26,8 @@ user_view()
     printf "Enter user to list attributes about: "
     read USER_ATTR
     cat /etc/passwd | grep $USER_ATTR | awk -F: '{print "\nUser name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
-<<<<<<< HEAD
     echo "Secondary groups: "
     cat /etc/group | grep $USER_ATTR | awk -F: '{print $4}'
-=======
-    cat /etc/group | grep $USER_ATTR | awk -F: '{print "\nSupplementary groups: " $1}'
->>>>>>> dcda2c951758ad907fde1ac3cd4dc201d8f8a39d
     enter_continue
 }
 
@@ -185,7 +181,7 @@ folder_list()
     echo "You are in $PWD"
     printf "Select folder to list content in: "
     read FLDR_LIST
-    ls -la --color=auto $FLDR_LIST
+    ls -a --color=auto $FLDR_LIST
     enter_continue
 }
 
