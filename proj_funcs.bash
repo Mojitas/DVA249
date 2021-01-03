@@ -23,7 +23,11 @@ user_list()
 
 user_view()
 {
- echo "to be added"
+    printf "Enter user to list attributes about: "
+    read USR_ATTR
+    cat /etc/passwd | grep $USR_ATTR | awk -F: '{print "\nUser name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
+
+    enter_continue
 }
 
 user_mod()
