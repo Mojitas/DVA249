@@ -8,6 +8,28 @@
 #	Status (up/down)
 
 #######################################################################
+##### Tests
+
+MOJITAS_INTERFACES="GENERAL.DEVICE:                         wlo1\nGENERAL.DEVICE:                         enp0s25\nGENERAL.DEVICE:                         lo"
+
+MOJITAS_IPADDRSHOW="1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: enp0s25: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
+    link/ether e4:11:5b:56:b8:a0 brd ff:ff:ff:ff:ff:ff
+3: wlo1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 20:10:7a:3b:c6:0f brd ff:ff:ff:ff:ff:ff
+    inet 192.168.100.236/24 brd 192.168.100.255 scope global dynamic noprefixroute wlo1
+       valid_lft 322sec preferred_lft 322sec
+    inet6 fe80::375:5cde:92a4:296/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever"
+
+#echo -e "$MOJITAS_INTERFACES"
+#echo -e "$MOJITAS_INTERFACES" | awk '{print $2}'
+#echo -e "$MOJITAS_INTERFACES" | awk '{print $2}' | grep -v "^lo$"
+
+#######################################################################
 ##### Functions
 
 # get gateway address 
@@ -31,16 +53,17 @@ function f_device_info {
 	STATUS=$($IPADDR)	# Execute command in IPADDR
 	STATUS=($STATUS)	# Convert to array
 	STATUS=${STATUS[8]}	# Get the 8th word
+	echo -e "Status: \t\t" $STATUS
 
 	# execute command, grep rows and print columns
 	IPV4=$($IPADDR | grep "inet " | awk '{print $2}')
 	# if command successful, print
-	if [ $? -eq 0 ]; then
+	if [ -n "$IPV4" ]; then
 	echo -e "IPv4:\t\t" $IPV4
 	fi
 
 	IPV6=$($IPADDR | grep "inet6 " | awk '{print $2}')
-	if [ $? -eq 0 ]; then
+	if [ -n "$IPV6" ]; then
 	echo -e "IPv6:\t\t" $IPV6
 	fi
 
@@ -55,13 +78,14 @@ function f_device_info {
 
 #######################################################################
 ##### Main
+function f_networkinfo(){
 
 # computer name
 NAME=`uname -n`
 echo "Computer name: $NAME"
 
 # Get device/interface names, excluding localhost
-DEVICES=`nmcli -f GENERAL.DEVICE device show | grep -v lo | awk '{print $2}'`
+DEVICES=`nmcli -f GENERAL.DEVICE device show | awk '{print $2}' | grep -v "^lo$"`
 
 # If no network interfaces exists
 if [ -z "$DEVICES" ]; then
@@ -80,15 +104,8 @@ done
 # Print default gateway
 f_default_gateway
 
+enter_continue
 
-###############################################
-##### Just some trash or something, idk....
-
-#print stuff
-# NR - Number of records (line counter), NF - number of fields 
-#ip -br address show | awk '{print NR,NF, $0}'
-
-
-
+}
 
 

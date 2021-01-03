@@ -14,8 +14,7 @@ menu_select()
     case $CHOICE in
 
     ni)  # display network info
-    #bash ./networkinfo 
-    enter_continue
+        f_networkinfo
     ;; 
     ua)  # user add
         user_add
@@ -66,7 +65,7 @@ menu_select()
 }
 
 
-cd /home/mojitas
+cd ~
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
