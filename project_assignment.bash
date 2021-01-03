@@ -14,8 +14,7 @@ menu_select()
     case $CHOICE in
 
     ni)  # display network info
-        f_default_gateway
-        enter_continue
+    echo netowkr!
     ;; 
     ua)  # user add
         user_add
@@ -67,6 +66,11 @@ menu_select()
 
 
 cd /home/mojitas
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 
 
 while [ "$CHOICE" != "ex" ]
