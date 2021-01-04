@@ -16,7 +16,7 @@ user_add()
 
 user_list()
 {
-    echo "Users:"
+    echo -e "${RED}Users${NC}:"
     cat /etc/passwd | awk -F: '$3 > 999 {print $3, $1}'
     enter_continue
 }
@@ -36,12 +36,13 @@ user_mod()
     printf "Enter user that you wish to change: "
     read USER_NM
 
-    echo -e "${RED}un${NC} - change username"
-    echo -e "${RED}pw${NC} - change password"
-    echo -e "${RED}pg${NC} - change primary group"
-    echo -e "${RED}uc${NC} - change user comments"
-    echo -e "${RED}hd${NC} - change home directory"
-    echo -e "${RED}ds${NC} - change default shell"
+    echo -e "${RED}un${NC} - Change username"
+    echo -e "${RED}pw${NC} - Change password"
+    echo -e "${RED}pg${NC} - Change primary group"
+    echo -e "${RED}uc${NC} - Change user comments"
+    echo -e "${RED}hd${NC} - Change home directory"
+    echo -e "${RED}ds${NC} - Change default shell"
+    echo -e "${RED}rt${NC} - Return to main menu"
 
     printf "Choice: "
     read USER_CH
@@ -88,6 +89,9 @@ user_mod()
         usermod -s ${SHELLS[$INDEX]} $USER_NM
         enter_continue
         ;;
+        rt)
+        echo "Return to main menu"
+        ;;
         *)
         echo "invalid option"
         sleep 1
@@ -113,7 +117,7 @@ group_add()
 
 group_list()
 {
-    echo "Groups:"
+    echo -e "${RED}Groups${NC}:"
     cat /etc/group | awk -F: '$3 > 999 {print  "id: "$3, $1}'
     enter_continue
 }
@@ -131,7 +135,8 @@ group_mod()
 {
     echo "Do you want to add or remove a user from a group?"
     echo -e "${RED}ad${NC} - Add user to group"
-    echo -e "${RED}rm${NC} - remove user from group"
+    echo -e "${RED}rm${NC} - Remove user from group"
+    echo -e "${RED}rt${NC} - Return to main menu"
     printf "Choice: "
     read GRP_CHOICE
 
@@ -151,6 +156,9 @@ group_mod()
         printf "Enter group to remove user from: "
         read GRP_RM
         gpasswd -d $USER_RM $GRP_RM
+    ;;
+
+    rt)
     ;;
 
     *)
@@ -187,6 +195,7 @@ folder_list()
 
 folder_view()
 {
+    echo "You are in $PWD"
     printf "Select folder to view: "
     read FLDR
     ls -la --color=auto $FLDR | grep " \.$"
@@ -200,7 +209,7 @@ folder_mod()
     printf "Select folder to change permissions on: "
     read FLDR
     echo $FLDR has permissions: 
-    ls -l | grep $FLDR
+    ls -la --color=auto $FLDR | grep " \.$"
     printf "Enter new permission: "
     read FLDR_PERM
     chmod $FLDR_PERM $FLDR
