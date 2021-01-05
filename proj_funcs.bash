@@ -25,9 +25,11 @@ user_view()
 {
     printf "Enter user to list attributes about: "
     read USER_ATTR
-    cat /etc/passwd | grep $USER_ATTR | awk -F: '{print "\nUser name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
-    echo "Secondary groups: "
-    cat /etc/group | grep $USER_ATTR | awk -F: '{print $4}'
+    clear
+    echo -e "${RED}User info${NC}: "
+    cat /etc/passwd | grep $USER_ATTR | awk -F: '{print "User name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
+    echo -e "\n${RED}All groups${NC}: "
+    cat /etc/group | grep $USER_ATTR | awk -F: '{print $1, "ID: " $3}'
     enter_continue
 }
 
