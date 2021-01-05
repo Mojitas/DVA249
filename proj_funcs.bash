@@ -198,7 +198,7 @@ folder_list()
 folder_view()
 {
     echo "You are in $PWD"
-    printf "Select folder to view: "
+    printf "${RED}Select folder to view${NC}: "
     read FLDR
     #ls -la --color=auto $FLDR | grep " \.$"
 
@@ -206,10 +206,12 @@ folder_view()
     DIRSTATS=( $(stat -c "%#a %U %G" $FLDR) )
     DIRPERM=${DIRSTATS[0]}
     DIRNAME=$(stat -c "%n" $FLDR)
+    DIREDIT=$(stat -c %y $FLDR)
 
     echo -e "\nDirectory permissions: $DIRPERM"
 
     echo -e "\nFolder $DIRNAME"
+    echo -e "Last edited: ${DIREDIT:0:19}"
     echo "Permissions:"
     echo "User ${DIRSTATS[1]}:"
     #check user permissions (bitshift numerical permissions by 6)
