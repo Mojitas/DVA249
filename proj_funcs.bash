@@ -207,7 +207,7 @@ folder_view()
     DIRPERM=${DIRSTATS[0]}
     DIRNAME=$(stat -c "%n" $FLDR)
 
-    echo DIRPERM $DIRPERM
+    echo -e "\nDirectory permissions: $DIRPERM"
 
     echo "Folder $DIRNAME"
     echo "Permissions:"
