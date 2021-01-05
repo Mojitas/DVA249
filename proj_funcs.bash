@@ -189,10 +189,69 @@ folder_view()
 {
     printf "Select folder to view: "
     read FLDR
-    ls -la --color=auto $FLDR | grep " \.$"
+    #ls -la --color=auto $FLDR | grep " \.$"
+
+    # DIRSTATS format: <numeric permissions> <name> <owner user name> <owner group name>
+    DIRSTATS=( $(stat -c "%#a %U %G" $FLDR) )
+    DIRPERM=${DIRSTATS[0]}
+    DIRNAME=$(stat -c "%n" $FLDR)
+
+    echo DIRPERM $DIRPERM
+
+    echo "Folder $DIRNAME"
+    echo "Permissions:"
+    echo "User ${DIRSTATS[1]}:"
+    #check user permissions (bitshift numerical permissions by 6)
+    #if 0Z00 then
+    PERM=$((DIRPERM>>6))
+    check_octal_permissions
+
+    echo -e "\nGroup ${DIRSTATS[2]}:"
+    #check group permissions
+    PERM=$((DIRPERM>>3))
+    check_octal_permissions
+    
+    echo -e "\nOther:"
+    #check Other permissions
+    PERM=$((DIRPERM>>0))
+    check_octal_permissions 
+
+    if (( $DIRPERM & 8#7000 )) 
+    then
+        echo "Additional permissions:"
+    fi
+
+    #if 1000 then bit is sticky
+    if (( $DIRPERM>>9 & 1 )) 
+    then
+        echo -n "Sticky bit"
+    fi
+
+    #if 2000 then SetGID true
+    if (( $DIRPERM>>9 & 2 )) 
+    then
+        echo -n "SetGID"
+    fi
+
     enter_continue
+
 }
 
+check_octal_permissions()
+{
+    if (( $PERM & 4 ))
+    then
+        echo -n -e "\tRead"
+    fi
+    if (( $PERM & 2 )) 
+    then
+        echo -n -e "\tWrite"
+    fi
+    if (( $PERM & 1 )) 
+    then
+        echo -n -e "\tExecute"
+    fi
+}
 
 folder_mod()
 {
