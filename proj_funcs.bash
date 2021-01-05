@@ -209,7 +209,7 @@ folder_view()
 
     echo -e "\nDirectory permissions: $DIRPERM"
 
-    echo "Folder $DIRNAME"
+    echo -e "\nFolder $DIRNAME"
     echo "Permissions:"
     echo "User ${DIRSTATS[1]}:"
     #check user permissions (bitshift numerical permissions by 6)
@@ -229,19 +229,19 @@ folder_view()
 
     if (( $DIRPERM & 8#7000 )) 
     then
-        echo "Additional permissions:"
+        echo -e "\n\nAdditional permissions:"
     fi
 
     #if 1000 then bit is sticky
     if (( $DIRPERM>>9 & 1 )) 
     then
-        echo -n "Sticky bit"
+        echo -e -n "\tSticky bit"
     fi
 
     #if 2000 then SetGID true
     if (( $DIRPERM>>9 & 2 )) 
     then
-        echo -n "SetGID"
+        echo -e -n "\tSetGID"
     fi
 
     enter_continue
