@@ -248,8 +248,13 @@ folder_del()
     echo "You are in $PWD"
     printf "Select folder to delete: "
     read FLDR_DEL
-    rm -r $FLDR_DEL
-    printf "Exiting!\n\n"
+    if ((FLDR_DEL=="/"))
+    then
+        echo "You \e[3mprobably${NC} don't want to do that..."
+    else
+        rm -r $FLDR_DEL
+        printf "Exiting!\n\n"
+    fi
 }
 
 folder_print()
@@ -257,46 +262,49 @@ folder_print()
     FLDR=$1
     # DIRSTATS format: <numeric permissions> <name> <owner user name> <owner group name>
     DIRSTATS=( $(stat -c "%#a %U %G" $FLDR) )
-    DIRPERM=${DIRSTATS[0]}
-    DIRNAME=$(stat -c "%n" $FLDR)
-    DIREDIT=$(stat -c %y $FLDR)
-
-    echo -e "\nDirectory permissions: $DIRPERM"
-
-    echo -e "\nFolder $DIRNAME"
-    echo -e "Last edited: ${DIREDIT:0:19}"
-    echo "Permissions:"
-    echo "User ${DIRSTATS[1]}:"
-    #check user permissions (bitshift numerical permissions by 6)
-    #if 0Z00 then
-    PERM=$((DIRPERM>>6))
-    check_octal_permissions
-
-    echo -e "\nGroup ${DIRSTATS[2]}:"
-    #check group permissions
-    PERM=$((DIRPERM>>3))
-    check_octal_permissions
-    
-    echo -e "\nOther:"
-    #check Other permissions
-    PERM=$((DIRPERM>>0))
-    check_octal_permissions 
-
-    if (( $DIRPERM & 8#7000 )) 
+    if (($?==0))
     then
-        echo -e "\n\nAdditional permissions:"
-    fi
+        DIRPERM=${DIRSTATS[0]}
+        DIRNAME=$(stat -c "%n" $FLDR)
+        DIREDIT=$(stat -c %y $FLDR)
 
-    #if 1000 then bit is sticky
-    if (( $DIRPERM>>9 & 1 )) 
-    then
-        echo -e -n "\tSticky bit"
-    fi
+        echo -e "\nDirectory permissions: $DIRPERM"
 
-    #if 2000 then SetGID true
-    if (( $DIRPERM>>9 & 2 )) 
-    then
-        echo -e -n "\tSetGID"
+        echo -e "\nFolder $DIRNAME"
+        echo -e "Last edited: ${DIREDIT:0:19}"
+        echo "Permissions:"
+        echo "User ${DIRSTATS[1]}:"
+        #check user permissions (bitshift numerical permissions by 6)
+        #if 0Z00 then
+        PERM=$((DIRPERM>>6))
+        check_octal_permissions
+
+        echo -e "\nGroup ${DIRSTATS[2]}:"
+        #check group permissions
+        PERM=$((DIRPERM>>3))
+        check_octal_permissions
+        
+        echo -e "\nOther:"
+        #check Other permissions
+        PERM=$((DIRPERM>>0))
+        check_octal_permissions 
+
+        if (( $DIRPERM & 8#7000 )) 
+        then
+            echo -e "\n\nAdditional permissions:"
+        fi
+
+        #if 1000 then bit is sticky
+        if (( $DIRPERM>>9 & 1 )) 
+        then
+            echo -e -n "\tSticky bit"
+        fi
+
+        #if 2000 then SetGID true
+        if (( $DIRPERM>>9 & 2 )) 
+        then
+            echo -e -n "\tSetGID"
+        fi
     fi
 
 }
