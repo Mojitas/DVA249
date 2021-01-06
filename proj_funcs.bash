@@ -211,6 +211,11 @@ folder_view()
     read FLDR
     #ls -la --color=auto $FLDR | grep " \.$"
 
+    if [ -z "$FLDR" ]; then
+        #use current directory
+        FLDR=.
+	fi
+
     folder_print $FLDR
     enter_continue
     return
