@@ -27,7 +27,7 @@ user_view()
     read USER_ATTR
     clear
     echo -e "${RED}User info${NC}: "
-    cat /etc/passwd | grep $USER_ATTR | awk -F: '{print "User name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
+    cat /etc/passwd | grep "$USER_ATTR:" | awk -F: '{print "User name: " $1"\nUser id: "$3"\nPrimary group: "$4"\nUser comments: "$5"\nHome directory: "$6"\nShell: " $7}'
     echo -e "\n${RED}All groups${NC}: "
     cat /etc/group | grep $USER_ATTR | awk -F: '{print $1, "ID: " $3}'
     enter_continue
@@ -129,7 +129,7 @@ group_view()
     printf "Enter a group to list users in: "
     read GRP_USER
     printf "Secondary users in $GRP_USER: "
-    grep $GRP_USER /etc/group | awk -F: '$3 > 999 {print $4}'
+    grep "$GRP_USER:" /etc/group | awk -F: '$3 > 999 {print $4}'
     enter_continue
 }
 
