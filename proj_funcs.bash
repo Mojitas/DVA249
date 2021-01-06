@@ -12,6 +12,7 @@ user_add()
     printf "Enter name of the new user: "
     read USER_NEW
     adduser $USER_NEW
+    error_check
 }
 
 user_list()
@@ -57,25 +58,29 @@ user_mod()
             usermod -l $USER_NM_NEW $USER_NM 
             mv /home/$USER_NM /home/$USER_NM_NEW
             usermod -d /home/$USER_NM_NEW $USER_NM_NEW
-            enter_continue
+            error_check
         ;;
         pw)
             passwd $USER_NM
+            error_check
         ;;
         pg)
             printf "Enter new primary group: "
             read USER_PMG
             usermod -g $USER_PMG $USER_NM
+            error_check
         ;;
         uc)
             printf "Enter new string: "
             read USER_COM
             usermod -c $USER_COM $USER_NM
+            error_check
         ;;
         hd)
             printf "Enter new existing home directory: "
             read USER_HD
             usermod -d $USER_HD $USER_NM
+            error_check
         ;;
         ds)
         # get available shells (and remove comments)
@@ -89,7 +94,7 @@ user_mod()
         read INDEX
         #change shell for chosen user
         usermod -s ${SHELLS[$INDEX]} $USER_NM
-        enter_continue
+        error_check
         ;;
         rt)
         echo "Return to main menu"
@@ -106,7 +111,7 @@ user_del()
     echo "Enter user to delete:"
     read USER_DEL
     userdel -r $USER_DEL
-    enter_continue
+    error_check
 }
 
 group_add()
@@ -114,7 +119,7 @@ group_add()
     printf "Enter the name of the new group: "
     read GRP_NAME
     groupadd $GRP_NAME
-    enter_continue
+    error_check
 }
 
 group_list()
@@ -150,6 +155,7 @@ group_mod()
         printf "Enter group to add user to: "
         read GRP_ADD
         gpasswd -a $USER_ADD $GRP_ADD
+        error_check
     ;;
 
     rm)
@@ -158,16 +164,17 @@ group_mod()
         printf "Enter group to remove user from: "
         read GRP_RM
         gpasswd -d $USER_RM $GRP_RM
+        error_check
     ;;
 
     rt)
+        enter_continue
     ;;
 
     *)
         echo "Not an option!"
     ;;
     esac
-    enter_continue
 }
 
 group_del()
@@ -292,6 +299,19 @@ folder_print()
         echo -e -n "\tSetGID"
     fi
 
+}
+
+error_check()
+{
+
+    temp=$?
+    if (( $temp==0 ))
+    then 
+        enter_continue
+    else
+        echo "error return vaule: $temp"
+        enter_continue
+    fi
 }
 
 menu_print()
