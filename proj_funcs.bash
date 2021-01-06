@@ -255,6 +255,7 @@ folder_del()
         rm -r $FLDR_DEL
         printf "Exiting!\n\n"
     fi
+    enter_continue
 }
 
 folder_print()
