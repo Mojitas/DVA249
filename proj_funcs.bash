@@ -202,6 +202,52 @@ folder_view()
     read FLDR
     #ls -la --color=auto $FLDR | grep " \.$"
 
+    folder_print $FLDR
+    enter_continue
+    return
+
+}
+
+check_octal_permissions()
+{
+    if (( $PERM & 4 ))
+    then
+        echo -n -e "\tRead"
+    fi
+    if (( $PERM & 2 )) 
+    then
+        echo -n -e "\tWrite"
+    fi
+    if (( $PERM & 1 )) 
+    then
+        echo -n -e "\tExecute"
+    fi
+}
+
+folder_mod()
+{
+    echo "You are in $PWD"
+    printf "Select folder to change permissions on: "
+    read FLDR
+    folder_print $FLDR
+    printf "\nEnter new permission: "
+    read FLDR_PERM
+    chmod $FLDR_PERM $FLDR
+    enter_continue
+}
+
+folder_del()
+{
+    echo "You are in $PWD"
+    printf "Select folder to delete: "
+    read FLDR_DEL
+    rm -r $FLDR_DEL
+    printf "Exiting!\n\n"
+}
+
+folder_print()
+{
+    FLDR=$1
     # DIRSTATS format: <numeric permissions> <name> <owner user name> <owner group name>
     DIRSTATS=( $(stat -c "%#a %U %G" $FLDR) )
     DIRPERM=${DIRSTATS[0]}
@@ -246,48 +292,7 @@ folder_view()
         echo -e -n "\tSetGID"
     fi
 
-    enter_continue
-
 }
-
-check_octal_permissions()
-{
-    if (( $PERM & 4 ))
-    then
-        echo -n -e "\tRead"
-    fi
-    if (( $PERM & 2 )) 
-    then
-        echo -n -e "\tWrite"
-    fi
-    if (( $PERM & 1 )) 
-    then
-        echo -n -e "\tExecute"
-    fi
-}
-
-folder_mod()
-{
-    echo "You are in $PWD"
-    printf "Select folder to change permissions on: "
-    read FLDR
-    echo $FLDR has permissions: 
-    ls -la --color=auto $FLDR | grep " \.$"
-    printf "Enter new permission: "
-    read FLDR_PERM
-    chmod $FLDR_PERM $FLDR
-    enter_continue
-}
-
-folder_del()
-{
-    echo "You are in $PWD"
-    printf "Select folder to delete: "
-    read FLDR_DEL
-    rm -r $FLDR_DEL
-    printf "Exiting!\n\n"
-}
-
 
 menu_print()
 {
