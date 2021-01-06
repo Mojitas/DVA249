@@ -173,6 +173,7 @@ group_mod()
 
     *)
         echo "Not an option!"
+        enter_continue
     ;;
     esac
 }
@@ -182,7 +183,7 @@ group_del()
     printf "Enter group to delete: "
     read GRP_DEL
     groupdel $GRP_DEL
-    enter_continue
+    error_check
 }
 
 folder_add()
@@ -191,6 +192,7 @@ folder_add()
     printf "Enter a name for a folder to add: "
     read FLDR_NAME
     mkdir $FLDR_NAME
+    error_check
 }
 
 folder_list()
@@ -240,7 +242,7 @@ folder_mod()
     printf "\nEnter new permission: "
     read FLDR_PERM
     chmod $FLDR_PERM $FLDR
-    enter_continue
+    error_check
 }
 
 folder_del()
